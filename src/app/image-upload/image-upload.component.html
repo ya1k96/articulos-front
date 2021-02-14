@@ -1,0 +1,26 @@
+<div class="column is-6 is-offset-3"> 
+
+    
+    <div class="card">
+      <!-- Formulario para los articulos nuevos -->
+      <br>
+    <p class="title is-4 has-text-centered" >Subir imagenes</p>
+    <div class="columns p-4">        
+      
+      <div class="column is-10 is-offset-1">
+        <progress class="progress is-primary is-large" *ngIf="loading" [value]="progressBarStatus" max="100">{{progressBarStatus}}%</progress>
+        <form [formGroup]="forma" enctype="multipart/form-data">
+            <input formControlName="file" type="file" class="control" id="fileControl" name="file" multiple
+            (change)="fileEvent($event)"
+            required>            
+            <br>
+            <br>
+            <input type="submit" value="Subir" class="button is-info" (click)="subirArchivo()">
+        </form>
+      </div>
+      
+    </div>
+    <!--  -->    
+    </div>
+   
+  </div>

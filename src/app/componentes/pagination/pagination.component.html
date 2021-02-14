@@ -1,0 +1,10 @@
+<nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+    <!-- <a class="pagination-previous">Previous</a>
+    <a class="pagination-next">Next page</a> -->
+    <ul class="pagination-list">
+      <li *ngFor="let i of paginas">
+          <a class="pagination-link" [ngClass]="paginaActual === i ? 'is-current' : ''" (click)="cambiarPagina(i)">{{i}}</a>
+      </li>
+            
+    </ul>
+</nav>

@@ -1,0 +1,20 @@
+<table id="todo-table" class="table is-hoverable is-fullwidth" >
+    <thead>
+      <tr>
+        <th>Codigo</th>
+        <th>Liquidado</th>
+        <th>Tipo articulo</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let articulo of docs" >
+        <td>{{ articulo.codigo }}</td>
+        <td *ngIf="!articulo.liquidado">Pendiente</td>
+        <td *ngIf="articulo.liquidado">Aprobado</td>                        
+        <td>{{ articulo.tipoArticulo }}</td>
+    </tr>        
+
+</tbody>
+
+</table>

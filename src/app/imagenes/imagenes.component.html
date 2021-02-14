@@ -1,0 +1,108 @@
+<div class="column is-12 p-0">
+    <div class="columns mt-1">
+      <div class="column is-3 is-offset-4">
+        <h2 class="title is-3 has-text-centered">Imagenes cargadas</h2>
+      </div>
+      <div class="column is-1">
+        <a class="button is-info is-outlined" routerLink="/usuarios/upload-image">
+          <span class="icon is-small">
+            <i class="fas fa-folder-plus"></i>
+          </span>
+          <span>Subir</span>
+        </a>
+      </div>
+    </div>
+    <div class="columns p-4">
+
+      <div class="column is-10 is-offset-1">
+        
+        <app-loading *ngIf="loading"></app-loading>
+      
+        <div class="mb-5">
+          <div class="field" *ngIf="!loading">
+            <p class="control has-icons-left">
+              <input class="input" type="text" placeholder="Codigo" #input (keyup.enter)="buscarArticulo(input.value)">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+            
+          </div>
+          <div class="control" *ngIf="buscarFlag && !loading">
+            <div class="tags has-addons">
+              <a class="tag is-link" id="tagName">{{ query }}</a>
+              <a class="tag is-delete" id="closeTag" (click)="cambiarPagina(paginaActual)"></a>
+            </div>
+          </div>
+          
+
+        </div>
+      <div class="field" *ngIf="!loading && !buscarFlag">
+        <form [formGroup]="cantForm">
+          <div class="control">
+            <div class="select">
+              <select formControlName="cantidadAMostrar" name="cantidadAMostrar" (change)="cantidadMostrar()">
+                <option [ngValue]="10">Mostrar</option>
+                <option *ngFor="let cant of listaCantidad" [ngValue]="cant" >{{cant}}</option>
+              </select>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="columns is-multiline is-desktop" id="content">
+            <div class="column is-3" *ngFor="let imagen of listaImagenes">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-square">
+                            <img [src]="imagen.img_url">                        
+                        </figure>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="content">
+                            <p><strong>
+                            {{imagen.code_name}}
+                            </strong></p>
+                            <p>
+                            {{imagen.descripcion}}
+                            </p>
+                        </div>´
+                        <p class="is-subtitle is-5">
+                          {{ imagen.createdAt | haceCuanto }}
+                        </p>
+                    </div>
+                        <!-- <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Bien</a>
+                            <a href="#" class="card-footer-item">Mal</a>
+                        </footer> -->
+        
+                </div>
+            </div>
+
+      </div>
+        <br>
+        <br>
+        
+        <div class="columns">
+            
+            <!-- Contenido para la paginacion -->
+            <div class="column is-offset-4 is-8" *ngIf="!buscarFlag">
+              <p *ngIf="!loading">Mostrando {{mostrarCantidad}} resultados. 
+                <strong>Pagina {{paginaActual}} de {{totalPages}}</strong> </p>
+              <div class="container" style="margin: 2rem;" *ngIf="listaImagenes.length !== 0">
+                <app-pagination 
+                [paginaActual]="paginaActual" 
+                [paginas]="listaPaginas"
+                (pagina)="cambiarPagina($event)"></app-pagination>
+    
+              </div>
+
+            </div>
+
+          </div>
+
+      </div>
+      <div class="p-4"></div>
+    </div>
+  </div>

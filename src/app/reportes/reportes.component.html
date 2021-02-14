@@ -1,0 +1,84 @@
+ <div class="container columns" *ngIf="loading">    
+    <div class="column is-9 is-offset-2">
+          
+      <app-loading *ngIf="loading"></app-loading>
+
+    </div>
+</div>
+
+<div class="columns" *ngIf="!loading">
+    
+    <div class="column is-9 is-offset-4">
+        <h2 class="title is-3 text-center animate__bounceIn text-center">Calcular liquidacion</h2>
+    </div>
+</div>
+<div class="columns" *ngIf="!loading">
+    <div class="column is-5 is-offset-2">
+        <div class="card bg-white p-4">
+            <span text-center><strong>Info gral</strong></span>
+            <pre>
+    Articulos especiales: {{data.normal}}
+    Articulos normales: {{data.especial}}
+            </pre>
+            <fieldset >
+                
+                <br>
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label" for="cantidad">Cantidad a liquidar</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field is-narrow">
+                      <div class="control">
+                        <input type="number" maxlength="1000" minlength="1" min="1" max="1000" id="cantidad" class="input" [value]="data.especial + data.normal" disabled>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Tipo</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field is-narrow">
+                      <div class="control">
+                        <div class="select is-fullwidth">
+                          <select id="select" disabled>
+                            <option>Todos</option>
+                            <option>Especial</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                  <br>
+                  <button type="button" class="button" (click)="abrirModal()">
+                    Calcular
+                  </button>
+
+              </fieldset>
+        </div>
+    </div>
+
+    <div class="column is-3">
+        
+        <div>
+            <article id="liquidaciones" class="panel is-primary">
+                <p class="panel-heading">
+                  Liquidaciones
+                </p>
+                <a class="panel-block liquidacion" *ngFor="let item of listaLiquidaciones">
+                    <span class="panel-icon">
+                      <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                    </span>
+                    {{ getFecha(item.createdAt) }} - Total: $ <strong>{{item.total}}</strong>
+                </a>
+            </article>                            
+        </div>
+    </div>
+
+  </div> 
