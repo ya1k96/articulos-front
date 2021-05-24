@@ -31,7 +31,7 @@ export class UploadComponent implements OnInit {
     let url = 'upload';
 
     if(!this.items) {
-      url = 'upload-description';
+      url = 'upload-category'; //REEMPLAZAR POR DESCTIPTION
     }
 
     this.articulos.subirArchivo(url, formData)

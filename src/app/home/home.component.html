@@ -20,12 +20,55 @@
               <i class="fas fa-search"></i>
             </span>
           </p>
-          
+
+          <swal 
+              #searchCat
+              
+              title = "Filtrar por categoria"
+              text = "Elegi una para filtrar los articulos"
+              icon = "question"
+              [focusCancel] = "true"
+              (confirm)="getCategoria()">
+              <div *swalPortal>
+                  <div class="columns mb-4 pb-4 is-centered" style="margin-top: 5%;">
+                    
+                      <div class="column">
+                          
+                          <div *ngIf="listaCategorias.length != 0" 
+                          style="height: 250px;
+                          width: auto;
+                          overflow: scroll;">                              
+                              <aside class="menu">
+                                <ul class="menu-list">
+                                  <div class="control">
+                                    <label class="radio" *ngFor="let cat of listaCategorias" >
+                                      <input type="radio" name="answer" (click)="seleccionarCategoria(cat)">
+                                      {{cat.name}}
+                                    </label>
+                                    
+                                  </div>
+                                  
+                                </ul>
+                              </aside>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </swal>
+
+          <button class="button is-link is-light" (click)="searchCat.fire()">Filtrar</button>
         </div>
         <div class="control" *ngIf="buscarFlag && !loading">
           <div class="tags has-addons">
             <a class="tag is-link" id="tagName">{{ query }}</a>
             <a class="tag is-delete" id="closeTag" (click)="cambiarPagina(paginaActual)"></a>
+          </div>
+        </div>
+
+        <div class="control mt-2" *ngIf="categoriaSeleccionada && !loading">
+          <div class="tags has-addons">
+            <a class="tag is-link" id="catTag">{{ categoriaSeleccionada.name }}</a>
+            <a class="tag is-delete" id="catTag" (click)="borrarFiltro()"></a>
           </div>
         </div>
 

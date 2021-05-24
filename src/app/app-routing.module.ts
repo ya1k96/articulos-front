@@ -10,7 +10,10 @@ import { UploadComponent } from './upload/upload.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { MostradorComponent } from './mostrador/mostrador.component';
 import { VerComponent } from './ver/ver.component';
-import { MostrarComponent } from './mostrar/mostrar.component';
+import { RevisarImagenComponent } from './revisar-imagen/revisar-imagen.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CorregirComponent } from './corregir/corregir.component';
+import { DetalleImagenCorregirComponent } from './detalle-imagen-corregir/detalle-imagen-corregir.component';
 
 const routes: Routes = [
   {
@@ -22,13 +25,13 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'imagenes',
-    component: ImagenesComponent
-  },
-  {
-    path: 'usuarios',
+    path: 'dashboard',
     canActivate: [EsUsuarioGuard],
     children: [
+      {
+        path: '',
+        component: DashboardComponent
+      },
       {
         path: 'reportes',
         component: ReportesComponent
@@ -50,11 +53,26 @@ const routes: Routes = [
         component: VerComponent
       },
       {
-        path: 'mostrar',
-        component: MostrarComponent
+        path: 'lista-corregir',
+        component: CorregirComponent
+      },
+      {
+        path: 'imagenes',
+        children: [
+          {
+            path: '',
+            component: ImagenesComponent,
+          },
+          {
+            path:'detalle/:id',
+            component: RevisarImagenComponent
+          }
+        ]
       }
+      
     ]
-  }
+  },
+  
 ];
 
 @NgModule({

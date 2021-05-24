@@ -1,1 +1,43 @@
-<p>ver works!</p>
+
+<div class="columns pb-4 is-centered" style="margin-top: 1%; margin-bottom: 9rem;">
+    <div class="column is-half">
+        <h3 class="title is-4" style="text-align: center;" *ngIf="!logged">Registrar pantalla <p class="subtitle is-5">(max 3)</p></h3>
+        <h3 class="title is-3" style="text-align: center;" *ngIf="logged">{{ input }}</h3>
+        <img class="p-4" style="margin-left: 37%;" src="../../assets/images/svg/ver.svg" alt="" width="150" height="150"> 
+        <div class="columns is-centered">
+            <div class="column is-half" style="width: 100%;">
+                <div class="tile notification is-info level" *ngIf="!logged">
+                    <div class="field-label is-normal level-item m-0 mb-4">
+                      <label class="label" style="color: white;">Espacio</label>
+                    </div>
+                    <div class="field-body level-item mr-4">
+                      <div class="field">
+                        <p class="control">
+                          <input class="input is-rounded"  type="text" placeholder="Mostrador" [(ngModel)]="input">
+                        </p>
+                    </div>                    
+                    </div>
+                  <button class="level-item button is-info is-light is-rounded ml-4" (click)="login()">Aceptar</button>
+
+        
+                </div>
+                <p class="subtitle is-4" style="text-align: center;">
+                  <span  *ngIf="logged && !articulo">
+                    Esperando Imagen
+                  </span> 
+                  <span  *ngIf="logged && articulo">
+                    {{ articulo.descripcion }}
+                  </span>
+                </p>
+                <div class="tile notification is-info" *ngIf="logged && articulo">                  
+                  <div class="level">
+                    <div class="level-item">
+                      <img class="title" [src]="articulo.img_url" alt="">
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+

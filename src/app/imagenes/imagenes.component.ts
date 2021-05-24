@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ArticlesService } from '../servicios/articles.service';
+import { MostrarService } from '../servicios/mostrar.service';
 
 @Component({
   selector: 'app-imagenes',
@@ -19,8 +20,16 @@ export class ImagenesComponent implements OnInit {
   public totalPages: number;
   public query: string;
   public cantForm: FormGroup;
+  pantallaSeleccionada = '';
+  usuarioPantallaSeleccionada = '';
+  pantallasPresentes = [];
+  articulo: any = {};
 
-  constructor(private articulos: ArticlesService, private formBuilder: FormBuilder) { }
+  constructor(private articulos: ArticlesService, 
+    private formBuilder: FormBuilder, 
+    private mostrar: MostrarService) { 
+    this.mostrar.conectar();
+  }
 
   ngOnInit(): void {
     this.cantForm = this.formBuilder.group({
@@ -28,7 +37,12 @@ export class ImagenesComponent implements OnInit {
     });
     this.getPagina(1);  
     
-  }
+    this.mostrar.getPantallasConectadas()
+    .subscribe((resp) => this.pantallasPresentes = resp);
+    
+    this.getPantallasPresentes();
+
+  } 
   
   cambiarPagina( pagina: number ) {
     this.loading = true;
@@ -52,6 +66,15 @@ export class ImagenesComponent implements OnInit {
     });
   }
 
+  seleccionarArticulo(articulo) {
+    this.articulo = articulo;
+  }
+
+  mostrarArticulo() {
+    this.articulo.client_id = this.pantallaSeleccionada;
+    this.mostrar.selectArt(this.articulo);
+  }
+
   getPagina(index: number) {
     this.articulos.imagenes(index, this.mostrarCantidad).subscribe((resp: any) => {
       //Obtenermos solo la lista de articulos
@@ -69,6 +92,20 @@ export class ImagenesComponent implements OnInit {
     this.mostrarCantidad = this.cantForm.controls.cantidadAMostrar.value;
     this.cambiarPagina(this.paginaActual);
   }
+
+  getPantallasPresentes() {
+    this.articulos.getPantallas()
+    .subscribe((resp: any) => {
+      this.pantallasPresentes = resp.pantallas;
+    });
+
+  }
+
+  elegirPantalla(cliente, usuario) {
+    this.usuarioPantallaSeleccionada = usuario;
+    this.pantallaSeleccionada = cliente;
+  }
+
 
   setConfigs(infoPage) {
     this.totalPages = infoPage.totalPages;

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticlesService {
-  private url: string = 'https://up-articulos.herokuapp.com';
+  url = environment.url;
 
   constructor(private http: HttpClient) { 
   }
@@ -15,12 +16,20 @@ export class ArticlesService {
     return this.http.post(this.url + '/' + uri + '?token=' + this.getToken(), file);
   }
 
-  subirImagen(file) {
+  subirLote(file) {
     return this.http.post(this.url + '/imagenes' + '?token=' + this.getToken(), file);
   }
 
-  articulos(pagina, cantidad) {
-    return this.http.get(this.url + '/api/articulos/' + pagina + '?cantidad=' + cantidad)
+  subirImagen(forma, id: string) {
+    return this.http.post(this.url + '/api/muestra-imagen/'+ id + '?token=' + this.getToken(), forma);
+  }
+
+  buscarCategoria(query: string) {
+    return this.http.get(this.url + '/api/categorias/buscar?query=' + query)
+  }
+
+  articulos(pagina, cantidad, categoria) {
+    return this.http.get(this.url + '/api/articulos/' + pagina + '?cantidad=' + cantidad + '&categoria=' + categoria)
     .pipe( map( (resp: any) =>  resp ) );
   }
 
@@ -30,6 +39,14 @@ export class ArticlesService {
 
   buscarImagen(codigo: string) {
     return this.http.get(this.url + '/api/buscar-imagen?keyword=' + codigo);
+  }
+
+  imagenById(id: string) {
+    return this.http.get(this.url + '/api/imagen/' + id);
+  }
+
+  getPantallas() {
+    return this.http.get(this.url + '/api/getPantallas');
   }
 
   buscarArticulos(codigo: string) {
@@ -42,6 +59,20 @@ export class ArticlesService {
 
   listaDeLiquidacion() {
     return this.http.get( this.url + '/api/liquidacion-list?token=' + this.getToken() );    
+  }
+  
+  listaFaltantes() {
+    return this.http.get( this.url + '/faltantes' );    
+  }
+
+  listaParaCorregir(pagina, cantidad) {
+    return this.http.get(this.url + '/api/lista-corregir/' + pagina + '?cantidad=' + cantidad )
+    .pipe( map( (resp: any) =>  resp.result ) );
+  }
+
+  detalleImagenCorregir(id: string) {
+    return this.http.get(this.url + '/api/imagen-corregir-detalle/' + id)
+    .pipe( map( (resp: any) =>  resp.result ) );
   }
 
   getToken() {

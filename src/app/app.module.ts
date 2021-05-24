@@ -13,7 +13,7 @@ import { PaginationComponent } from './componentes/pagination/pagination.compone
 import { TableArtsComponent } from './componentes/table-arts/table-arts.component';
 import { BloqComponent } from './bloq/bloq.component';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CargarComponent } from './cargar/cargar.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { LoadingComponent } from './componentes/loading/loading.component';
@@ -23,11 +23,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HaceCuantoPipe } from './pipes/hace-cuanto.pipe';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
-import { SocketIoModule } from 'ngx-socket-io';
 import { MostradorComponent } from './mostrador/mostrador.component';
-import { MostrarComponent } from './mostrar/mostrar.component';
 import { VerComponent } from './ver/ver.component';
+import { MostrarService } from './servicios/mostrar.service';
+import { PantallaService } from './servicios/pantalla.service';
+import { RevisarImagenComponent } from './revisar-imagen/revisar-imagen.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CorregirComponent } from './corregir/corregir.component';
+import { DetalleImagenCorregirComponent } from './detalle-imagen-corregir/detalle-imagen-corregir.component';
+import { ComentariosComponent } from './componentes/comentarios/comentarios.component';
+
 
 @NgModule({
   declarations: [
@@ -47,8 +54,12 @@ import { VerComponent } from './ver/ver.component';
     HaceCuantoPipe,
     ImageUploadComponent,
     MostradorComponent,
-    MostrarComponent,
-    VerComponent
+    VerComponent,
+    RevisarImagenComponent,
+    DashboardComponent,
+    CorregirComponent,
+    DetalleImagenCorregirComponent,
+    ComentariosComponent
   ],
   imports: [
     BrowserModule,
@@ -56,11 +67,14 @@ import { VerComponent } from './ver/ver.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SocketIoModule,
+    FormsModule,
+    SweetAlert2Module.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    ArticlesService
+    ArticlesService,
+    MostrarService,
+    PantallaService
   ],
   bootstrap: [AppComponent]
 })

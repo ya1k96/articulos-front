@@ -51,6 +51,38 @@
         </form>
       </div>
       <div class="columns is-multiline is-desktop" id="content">
+          <swal title="SweetAlert2" [swalOptions]="{ confirmButtonText: 'Cerrar' }"
+          title="Pantallas"
+          #modal>
+            
+            <div *swalPortal>
+              <p *ngIf="pantallasPresentes.length == 0">No hay pantallas conectadas</p>
+                <div class="level">
+                  <div class="level-item has-text-centered control" *ngFor="let pantalla of pantallasPresentes" (click)="elegirPantalla(pantalla.client_id, pantalla.usuario)">
+                    <div class="tags has-addons">
+                      <span class="tag is-primary">{{ pantalla.usuario }}</span>
+                    </div>
+                  </div>
+
+                </div>
+
+              <button class="button is-rounded is-succcess"
+              [disabled]="pantallaSeleccionada == ''"
+              (click)="mostrarArticulo()">Mostrar</button>
+              <div *ngIf="pantallaSeleccionada != ''">                
+                <p></p>
+                <div class="control">
+                  <div class="tags has-addons">
+                    <span class="tag is-dark"><i class="fas fa-desktop"></i></span>
+                    <a class="tag is-link">{{ usuarioPantallaSeleccionada }}</a>
+                    <a class="tag is-delete" (click)="pantallaSeleccionada = ''"></a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </swal>
             <div class="column is-3" *ngFor="let imagen of listaImagenes">
                 <div class="card">
                     <div class="card-image">
@@ -60,6 +92,7 @@
                     </div>
                     
                     <div class="card-content">
+                      
                         <div class="content">
                             <p><strong>
                             {{imagen.code_name}}
@@ -67,10 +100,19 @@
                             <p>
                             {{imagen.descripcion}}
                             </p>
-                        </div>´
+                        </div>
                         <p class="is-subtitle is-5">
                           {{ imagen.createdAt | haceCuanto }}
-                        </p>
+                        </p>                        
+                        <div class="buttons">
+                          <button class="button is-light is-info is-rounded" 
+                          [swal]="modal"
+                          (click)="seleccionarArticulo(imagen)"
+                          >Ver<i class="fas fa-desktop ml-2"></i></button>
+                          <button class="button is-info">
+                            <a style="color: white" routerLink="/dashboard/imagenes/detalle/{{imagen._id}}">revisar</a>
+                          </button>
+                        </div>
                     </div>
                         <!-- <footer class="card-footer">
                             <a href="#" class="card-footer-item">Bien</a>

@@ -35,7 +35,7 @@ export class ImageUploadComponent implements OnInit {
       let formData = new FormData();
       formData.append('image', img, img.name);
       
-      this.articulos.subirImagen(formData)
+      this.articulos.subirLote(formData)
       .subscribe((resp: any) => {    
         if( this.progressBarStatus < 100 ) {
           this.progressBarStatus = this.progressBarStatus + 1;

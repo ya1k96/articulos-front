@@ -1,0 +1,22 @@
+<div class="columns is-centered">
+    <div class="column is-half">
+      <h2 class="title is-3 " style="text-align: center;">Dashboard</h2>
+
+    </div>
+</div>  
+<div class="columns mb-4 is-centered">
+    
+    <div class="column is-half p-0">
+        <div class="row-center pl-2">
+            <div *ngFor="let item of items">
+                <div class="box" (click)="goTo(item.url)">
+                    <img src="../../assets/images/dashboard/{{item.ico}}">
+                    <p class="title is-4 mt-4">
+                       {{item.title}}
+                    </p>
+                </div>                                           
+
+            </div>
+        </div>      
+    </div>
+</div>  

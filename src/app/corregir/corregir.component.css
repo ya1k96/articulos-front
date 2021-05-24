@@ -1,0 +1,21 @@
+#lista-vacia {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+.centro-imagen {
+    height: 60%;
+}
+img {
+    width: 25%;
+    height: 25%;
+}
+
+.row-center {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
+}

@@ -1,0 +1,42 @@
+<div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        Comentarios ({{comentarios.length}})
+      </p>
+      <button class="card-header-icon" aria-label="more options">
+        <span class="icon" (click)="visible = !visible">
+          <i class="fas fa-angle-down" aria-hidden="true" *ngIf="!visible"></i>
+          <i class="fas fa-angle-up" aria-hidden="true" *ngIf="visible"></i>
+        </span>
+      </button>
+    </header>
+    <div *ngIf="visible">
+        <div *ngIf="comentarios.length === 0">
+            <div class="card-content">
+                <div class="content">
+                  <p class="subtitle is-5 text-center">Aun no hay comentarios</p>
+                </div>
+              </div>
+        </div>
+        <div *ngFor="let comentario of comentarios">
+            <div class="card-image">
+                <figure class="image is-4by3" *ngIf="comentario.img_muestra">
+                  <img [src]="comentario.img_muestra.img_url" alt="Placeholder image">
+                </figure>
+              </div>
+            <div class="card-content">
+              <div class="content">
+                {{ comentario.comentario }}
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a href="#" class="card-footer-item">Save</a>
+              <a href="#" class="card-footer-item">Edit</a>
+              <a href="#" class="card-footer-item">Delete</a>
+            </footer>
+    
+        </div>
+
+    </div>
+
+  </div>

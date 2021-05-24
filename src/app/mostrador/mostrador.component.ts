@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ export class MostradorComponent implements OnInit {
   claseTile = 'is-info';
   claseTile2 = 'is-info';
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

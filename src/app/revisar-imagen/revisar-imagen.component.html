@@ -1,0 +1,67 @@
+<h1 style="text-align: center;" class="title is-2">Detalle</h1>
+<div class="columns mb-4 pb-4 is-centered" style="margin-top: 2%;">
+    <app-loading *ngIf="loading"></app-loading>
+    <div *ngIf="!loading" class="columns is-centered">
+      <div class="column is-7 ">
+  
+  
+          <article class="panel is-info">
+              <p class="panel-heading">
+                Codigo de articulo:  {{ articulo.code_name }}
+              </p>
+              <p class="panel-tabs">
+  
+              </p>
+              <div class="">
+                <app-loading *ngIf="loading"></app-loading>
+                <div class="card" *ngIf="!loading">
+                    <img class=" " [src]="articulo.img_url" width="400" height="400">                                    
+          
+                </div>
+          
+              </div>
+              <div class="panel-block">
+                <p class="control has-icons-left">
+                  {{ articulo.descripcion }}
+                  
+                </p>
+                <p class="is-subtitle is-5">
+                  {{ articulo.createdAt | haceCuanto }}
+                </p>
+              </div>
+              
+              <!-- Reemplezar por una etiqueta form -->
+              <div class="buttons">
+                <button class="button is-light is-success" disabled>Corregido <i class="fas fa-check"></i></button>
+              </div>
+            </article>
+            
+      </div>
+      <div class="column is-6">
+        <button class="button is-info" [ngClass]="{'is-light': calificar}" (click)="calificar = !calificar">Comentar</button>
+        <div class="p-4 animate__animated animate__bounceIn" *ngIf="calificar">
+          <form [formGroup]="forma" enctype="multipart/form-data">
+            <div class="field">
+                <label class="label">Comentario</label>
+                <div class="control">
+                  <textarea class="textarea" placeholder="Algun dato relevante" formControlName="comentario"></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Autor</label>
+                <div class="control">
+                  <input class="input" placeholder="Anonimo" formControlName="autor">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Sugerencia</label>
+                <input formControlName="file" type="file" class="control" id="fileControl" name="file" 
+                (change)="fileEvent($event)"> 
+            </div>
+            <input type="submit" class="button is-success" value="Guardar" (click)="subirArchivo()">
+          </form>
+        </div>
+        <app-comentarios [comentarios]="articulo.observaciones"></app-comentarios>
+      </div>
+    </div>
+</div> 
